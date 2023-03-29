@@ -2,6 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+List<String> searchCompanies(String query) {
+
+  var box = GetStorage();
+  var cachedResponse = box.read('response');
+  List<String> searchResults = [];
+
+  for (var result in cachedResponse['data']['companiesList']) {
+    if (result['name'].toString().isCaseInsensitiveContains(query)) {
+      searchResults.add(result['name']);
+    }
+  }
+
+  print(searchResults);
+  return searchResults;
+}
+
 class ResultsController extends GetxController {
   var companiesFound = ['test', "test2"].obs;
   final TextEditingController searchController = TextEditingController();
@@ -41,6 +57,10 @@ class Results extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
                       controller: controller.searchController,
+                      onChanged: (value) {
+                        List<String> searchResults = searchCompanies(value);
+                        controller.companiesFound.value = searchResults;
+                      },
                       decoration: const InputDecoration(
                         isDense: true,
                         hintText: "Search Companies",
@@ -62,21 +82,23 @@ class Results extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 10),
-                        shrinkWrap: true,
-                        padding: EdgeInsets.only(bottom: 10),
-                        itemBuilder: (BuildContext, index) {
-                          return ListTile(
-                            title: Text("Item"),
-                            shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                    width: 1, color: Colors.blue),
-                                borderRadius: BorderRadius.circular(10)),
-                          );
-                        },
-                        itemCount: controller.companiesFound.length),
+                    child: Material(
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: 10),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(bottom: 10),
+                          itemBuilder: (BuildContext, index) {
+                            return ListTile(
+                              title: Text(controller.companiesFound[index]),
+                              shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                      width: 1, color: Colors.blue),
+                                  borderRadius: BorderRadius.circular(10)),
+                            );
+                          },
+                          itemCount: controller.companiesFound.length),
+                    ),
                   ),
                 )
               ],

@@ -13,8 +13,11 @@ Future<bool> getAndStoreResults(String email) async {
     var response = await dio.post(
         'https://notaryapp-staging.herokuapp.com/customer/login',
         data: {'email': email});
-    if (response.data != null) {
+    print(response.data['status']);
+    if (response.data['status'] == 2) {
       box.write('response', response.data);
+    } else {
+      return false;
     }
   } catch (e) {
     return false;
@@ -96,8 +99,8 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 40,
-                  height: 40,
+                  width: 60,
+                  height: 60,
                   // If loading, display progress indicator else display message.
                   child: Obx(() => controller.isLoading.value
                       ? const Padding(
