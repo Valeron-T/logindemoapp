@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ResultsController extends GetxController {
-  var companiesFound = ['test'].obs;
+  var companiesFound = ['test', "test2"].obs;
   final TextEditingController searchController = TextEditingController();
 }
 
@@ -25,32 +25,60 @@ class Results extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     "Companies List",
                     style: TextStyle(fontSize: 24),
                   ),
                 ),
-                Text("${controller.companiesFound.length} companies Found"),
-                TextFormField(
-                  controller: controller.searchController,
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    hintText: "Search Companies",
-                    hintStyle: TextStyle(fontWeight: FontWeight.bold),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.black),
-                        borderRadius: BorderRadius.zero),
-                    contentPadding: EdgeInsets.fromLTRB(10, 7, 0, 7),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                      "${controller.companiesFound.length} companies Found"),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      controller: controller.searchController,
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        hintText: "Search Companies",
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.blue),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1, color: Colors.blue),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100))),
+                        contentPadding: EdgeInsets.fromLTRB(20, 7, 0, 7),
+                      ),
+                    ),
                   ),
                 ),
-                // ListView.builder(
-                //     itemBuilder: (BuildContext, index) {
-                //       return ListTile(
-                //         title: Text("helo"),
-                //       );
-                //     },
-                //     itemCount: controller.companiesFound.length)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10),
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(bottom: 10),
+                        itemBuilder: (BuildContext, index) {
+                          return ListTile(
+                            title: Text("Item"),
+                            shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(10)),
+                          );
+                        },
+                        itemCount: controller.companiesFound.length),
+                  ),
+                )
               ],
             ),
           )),
