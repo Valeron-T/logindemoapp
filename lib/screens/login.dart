@@ -13,7 +13,6 @@ Future<bool> getAndStoreResults(String email) async {
     var response = await dio.post(
         'https://notaryapp-staging.herokuapp.com/customer/login',
         data: {'email': email});
-    print(response.data['status']);
     if (response.data['status'] == 2) {
       box.write('response', response.data);
     } else {
@@ -61,10 +60,8 @@ class Login extends StatelessWidget {
                       hintText: "Email",
                       hintStyle: TextStyle(fontWeight: FontWeight.bold),
                       focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.blue),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100))),
+                          borderSide: BorderSide(width: 2, color: Colors.blue),
+                          borderRadius: BorderRadius.all(Radius.circular(100))),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.zero),
@@ -77,7 +74,8 @@ class Login extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       controller.isLoading.value = true;
-                      bool isFetchSuccessfull = await getAndStoreResults(controller.emailController.value.text);
+                      bool isFetchSuccessfull = await getAndStoreResults(
+                          controller.emailController.value.text);
                       controller.isLoading.value = false;
                       // If data fetch successfull navigate to next screen else display error message.
                       if (isFetchSuccessfull) {
