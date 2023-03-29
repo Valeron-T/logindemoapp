@@ -61,7 +61,7 @@ class Login extends StatelessWidget {
                       hintStyle: TextStyle(fontWeight: FontWeight.bold),
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(width: 2, color: Colors.blue),
-                          borderRadius: BorderRadius.all(Radius.circular(100))),
+                          borderRadius: BorderRadius.zero),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.zero),
