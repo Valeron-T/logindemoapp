@@ -1,16 +1,12 @@
-# logindemoapp
+# Login Demo App
 
-A new Flutter project.
+A simple app that makes a POST request and displays data. Data can be filtered by searching.
 
-## Getting Started
+## Build Requirements
+Flutter and Dart environment installed
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Build Instructions
+Clone the repo Run 
+```flutter pub get```
+& Build for your respective platform using 
+```flutter run```
