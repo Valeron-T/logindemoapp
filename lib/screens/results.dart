@@ -3,27 +3,27 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 List<String> searchCompanies(String query) {
-
   var box = GetStorage();
   var cachedResponse = box.read('response');
   List<String> searchResults = [];
 
+  // Search for a companies in local storage
   for (var result in cachedResponse['data']['companiesList']) {
     if (result['name'].toString().isCaseInsensitiveContains(query)) {
       searchResults.add(result['name']);
     }
   }
 
-  print(searchResults);
   return searchResults;
 }
 
 class ResultsController extends GetxController {
-  var companiesFound = ['test', "test2"].obs;
+  var companiesFound = [].obs;
   final TextEditingController searchController = TextEditingController();
 }
 
 class Results extends StatelessWidget {
+  Results({super.key});
   var box = GetStorage();
   ResultsController controller = Get.put(ResultsController());
 
@@ -50,6 +50,7 @@ class Results extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
+                      // Resultant List length is number of companies
                       "${controller.companiesFound.length} companies Found"),
                 ),
                 Center(
@@ -83,12 +84,13 @@ class Results extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Material(
+                      // Display matching companies
                       child: ListView.separated(
                           separatorBuilder: (context, index) =>
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                           shrinkWrap: true,
-                          padding: EdgeInsets.only(bottom: 10),
-                          itemBuilder: (BuildContext, index) {
+                          padding: const EdgeInsets.only(bottom: 10),
+                          itemBuilder: (context, index) {
                             return ListTile(
                               title: Text(controller.companiesFound[index]),
                               shape: RoundedRectangleBorder(
