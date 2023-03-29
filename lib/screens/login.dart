@@ -33,7 +33,7 @@ class LoginController extends GetxController {
 
 class Login extends StatelessWidget {
   Login({super.key});
-  LoginController controller = Get.put(LoginController());
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {

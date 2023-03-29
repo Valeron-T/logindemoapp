@@ -24,8 +24,8 @@ class ResultsController extends GetxController {
 
 class Results extends StatelessWidget {
   Results({super.key});
-  var box = GetStorage();
-  ResultsController controller = Get.put(ResultsController());
+  final box = GetStorage();
+  final ResultsController controller = Get.put(ResultsController());
 
   @override
   Widget build(BuildContext context) {
